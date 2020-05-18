@@ -4,11 +4,12 @@
       <van-col span="2">
         <img :src="locationIcon" class="location-icon" />
       </van-col>
-      <van-col span="19">
-        <input type="text" class="search-input" />
+      <van-col span="18">
+        <!-- <input type="text" class="search-input" /> -->
+        <van-search placeholder="请输入搜索关键词" class="search-input" />
       </van-col>
-      <van-col span="3">
-        <van-button type="default" size="mini">查找</van-button>
+      <van-col span="4">
+        <van-button type="default" size="small">查找</van-button>
       </van-col>
     </van-row>
   </div>
@@ -35,14 +36,11 @@ export default {
   display: flex;
   align-items: center;
 }
-.search-input {
+.search-input.van-search {
+  padding: 0;
   width: 100%;
-  height: 1rem;
-  font-size: 0.8rem;
-  border: none;
-  color: #000;
 }
 .location-icon {
-  max-height: 1.4rem;
+  max-height: 1.3rem;
 }
 </style>

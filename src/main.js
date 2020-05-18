@@ -1,8 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
-import { Cell, CellGroup, Field, Button, Row, Col } from 'vant'
-Vue.use(Button).use(Row).use(Col).use(Field)
-Vue.use(Cell).use(CellGroup)
+import { Swipe, SwipeItem, Search, Button, Row, Col } from 'vant'
+Vue.use(Button).use(Row).use(Col).use(Swipe).use(SwipeItem).use(Search)
 
 Vue.config.productionTip = false
 
