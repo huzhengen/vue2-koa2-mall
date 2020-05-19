@@ -1,18 +1,9 @@
 <template>
   <div>
     <div class="search-bar">
-      <van-row gutter="5">
-        <van-col span="2">
-          <img :src="locationIcon" class="location-icon" />
-        </van-col>
-        <van-col span="18">
-          <!-- <input type="text" class="search-input" /> -->
-          <van-search placeholder="请输入搜索关键词" class="search-input" />
-        </van-col>
-        <van-col span="4">
-          <van-button type="default" size="small">查找</van-button>
-        </van-col>
-      </van-row>
+      <img :src="locationIcon" class="location-icon" />
+      <van-search placeholder="请输入搜索关键词" class="search-input" />
+      <van-button type="default" size="small">查找</van-button>
     </div>
     <div class="swiper-area">
       <van-swipe :autoplay="5000">
@@ -27,7 +18,7 @@
         <span>{{cate.mallCategoryName}}</span>
       </div>
     </div>
-    <div class="ad-banner">
+    <div class="banner">
       <img v-lazy="adBanner.PICTURE_ADDRESS" width="100%" />
     </div>
   </div>
@@ -67,18 +58,16 @@ export default {
 
 <style>
 .search-bar {
-  background: yellow;
-  padding: 0 0.5rem 0;
-  height: 2rem;
-}
-.search-bar .van-col {
+  background-color: yellow;
+  padding: 0 0.3rem 0;
   height: 2rem;
   display: flex;
+  justify-content: space-between;
   align-items: center;
 }
 .search-input.van-search {
   padding: 0;
-  width: 100%;
+  width: 15rem;
 }
 .location-icon {
   max-height: 1.3rem;
@@ -87,6 +76,9 @@ export default {
   width: 20rem;
   height: 9.1rem;
   clear: both;
+}
+.swiper-area .van-swipe {
+  height: 100%;
 }
 .type-bar {
   background-color: #fff;
