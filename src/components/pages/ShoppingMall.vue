@@ -60,6 +60,7 @@ export default {
       adBanner: {},
       recommendGoods: [],
       swiperOptions: {
+        loop: true,
         pagination: {
           el: ".swiper-pagination"
         }
