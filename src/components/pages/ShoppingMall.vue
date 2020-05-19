@@ -17,33 +17,50 @@
     <div class="swiper-area">
       <van-swipe :autoplay="5000">
         <van-swipe-item v-for="(banner,index) in bannerPicArray" :key="index">
-          <img v-lazy="banner.imageUrl" width="100%" />
+          <img v-lazy="banner.image" width="100%" />
         </van-swipe-item>
       </van-swipe>
+    </div>
+    <div class="type-bar">
+      <div v-for="(cate,index) in category" :key="index">
+        <img v-lazy="cate.image" />
+        <span>{{cate.mallCategoryName}}</span>
+      </div>
+    </div>
+    <div class="ad-banner">
+      <img v-lazy="adBanner.PICTURE_ADDRESS" width="100%" />
     </div>
   </div>
 </template>
 
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
       locationIcon: require("../../assets/images/location.png"),
-      bannerPicArray: [
-        {
-          imageUrl:
-            "https://gw.alicdn.com/imgextra/i2/134/O1CN01QaamV51CrPfrtnutB_!!134-0-lubanu.jpg"
-        },
-        {
-          imageUrl:
-            "https://aecpm.alicdn.com/simba/img/TB1CWf9KpXXXXbuXpXXSutbFXXX.jpg_q50.jpg"
-        },
-        {
-          imageUrl:
-            "https://img.alicdn.com/imgextra/i3/190/O1CN01DnjRIs1DH3qvnfHGg_!!190-0-luban.jpg"
-        }
-      ]
+      bannerPicArray: [],
+      category: [],
+      adBanner: {}
     };
+  },
+  created() {
+    axios({
+      url: "/api/data.json",
+      method: "get"
+    })
+      .then(response => {
+        console.log(response);
+        console.log(response.data.data);
+        if (response.status == 200) {
+          this.category = response.data.data.category;
+          this.adBanner = response.data.data.advertesPicture; //获得广告图片
+          this.bannerPicArray = response.data.data.slides; //轮播图片
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 };
 </script>
@@ -68,6 +85,24 @@ export default {
 }
 .swiper-area {
   width: 20rem;
+  height: 9.1rem;
   clear: both;
+}
+.type-bar {
+  background-color: #fff;
+  margin: 0 0.3rem 0.3rem 0.3rem;
+  border-radius: 0.3rem;
+  font-size: 14px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+.type-bar div {
+  padding: 0.3rem;
+  font-size: 12px;
+  text-align: center;
+}
+.type-bar div img {
+  width: 100%;
 }
 </style>
