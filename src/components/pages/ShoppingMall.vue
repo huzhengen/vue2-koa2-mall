@@ -21,18 +21,50 @@
     <div class="banner">
       <img v-lazy="adBanner.PICTURE_ADDRESS" width="100%" />
     </div>
+    <div class="recommend-area">
+      <div class="recommend-title">商品推荐</div>
+      <div class="recommend-body">
+        <swiper :options="swiperOptions">
+          <swiper-slide v-for=" (item ,index) in recommendGoods" :key="index">
+            <div class="recommend-item">
+              <img :src="item.image" width="80%" />
+              <div>{{item.goodsName}}</div>
+              <div>￥{{item.price}} (￥{{item.mallPrice}})</div>
+            </div>
+          </swiper-slide>
+          <div class="swiper-pagination" slot="pagination"></div>
+        </swiper>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import { Swiper, SwiperSlide, directive } from "vue-awesome-swiper";
+import "swiper/css/swiper.css";
+
 export default {
+  components: {
+    Swiper,
+    SwiperSlide
+  },
+  directives: {
+    swiper: directive
+  },
   data() {
     return {
       locationIcon: require("../../assets/images/location.png"),
       bannerPicArray: [],
       category: [],
-      adBanner: {}
+      adBanner: {},
+      recommendGoods: [],
+      swiperOptions: {
+        pagination: {
+          el: ".swiper-pagination"
+        }
+        // Some Swiper option/callback...
+      }
     };
   },
   created() {
@@ -47,6 +79,7 @@ export default {
           this.category = response.data.data.category;
           this.adBanner = response.data.data.advertesPicture; //获得广告图片
           this.bannerPicArray = response.data.data.slides; //轮播图片
+          this.recommendGoods = response.data.data.recommend; //推荐商品
         }
       })
       .catch(error => {
@@ -96,5 +129,25 @@ export default {
 }
 .type-bar div img {
   width: 100%;
+}
+.recommend-area {
+  background-color: #fff;
+  margin-top: 0.3rem;
+}
+.recommend-title {
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+  padding: 0.2rem;
+  color: #e5017d;
+}
+.recommend-body {
+  border-bottom: 1px solid #eee;
+}
+
+.recommend-item {
+  width: 99%;
+  border-right: 1px solid #eee;
+  font-size: 12px;
+  text-align: center;
 }
 </style>
