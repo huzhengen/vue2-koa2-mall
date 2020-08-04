@@ -36,26 +36,7 @@
         </swiper>
       </div>
     </div>
-    <div class="floor">
-      <div class="floor-anomaly">
-        <div class="floor-one">
-          <img :src="floor1_0.image" width="100%" />
-        </div>
-        <div>
-          <div class="floor-two">
-            <img :src="floor1_1.image" width="100%" />
-          </div>
-          <div>
-            <img :src="floor1_2.image" width="100%" />
-          </div>
-        </div>
-      </div>
-      <div class="floor-rule">
-        <div v-for="(item ,index) in floor1.slice(3)" :key="index">
-          <img :src="item.image" width="100%" />
-        </div>
-      </div>
-    </div>
+    <floorComponent :floorData="floor1"></floorComponent>
   </div>
 </template>
 
@@ -63,14 +44,16 @@
 import axios from "axios";
 import { Swiper, SwiperSlide, directive } from "vue-awesome-swiper";
 import "swiper/css/swiper.css";
+import floorComponent from "../component/floorComponent";
 
 export default {
   components: {
     Swiper,
-    SwiperSlide
+    SwiperSlide,
+    floorComponent,
   },
   directives: {
-    swiper: directive
+    swiper: directive,
   },
   data() {
     return {
@@ -82,22 +65,22 @@ export default {
       swiperOptions: {
         loop: true,
         pagination: {
-          el: ".swiper-pagination"
-        }
+          el: ".swiper-pagination",
+        },
         // Some Swiper option/callback...
       },
       floor1: [],
       floor1_0: {},
       floor1_1: {},
-      floor1_2: {}
+      floor1_2: {},
     };
   },
   created() {
     axios({
       url: "/api/data.json",
-      method: "get"
+      method: "get",
     })
-      .then(response => {
+      .then((response) => {
         console.log(response);
         console.log(response.data.data);
         if (response.status == 200) {
@@ -111,14 +94,14 @@ export default {
           this.floor1_2 = this.floor1[2];
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
-  }
+  },
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
 .search-bar {
   background-color: yellow;
   padding: 0 0.3rem 0;
@@ -126,21 +109,21 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-.search-input.van-search {
-  padding: 0;
-  width: 15rem;
-}
-.location-icon {
-  max-height: 1.3rem;
+  .search-input.van-search {
+    padding: 0;
+    width: 15rem;
+  }
+  .location-icon {
+    max-height: 1.3rem;
+  }
 }
 .swiper-area {
   width: 20rem;
   height: 9.1rem;
   clear: both;
-}
-.swiper-area .van-swipe {
-  height: 100%;
+  .van-swipe {
+    height: 100%;
+  }
 }
 .type-bar {
   background-color: #fff;
@@ -150,65 +133,32 @@ export default {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-}
-.type-bar div {
-  padding: 0.3rem;
-  font-size: 12px;
-  text-align: center;
-}
-.type-bar div img {
-  width: 100%;
+  div {
+    padding: 0.3rem;
+    font-size: 12px;
+    text-align: center;
+    img {
+      width: 100%;
+    }
+  }
 }
 .recommend-area {
   background-color: #fff;
   margin-top: 0.3rem;
-}
-.recommend-title {
-  border-bottom: 1px solid #eee;
-  font-size: 14px;
-  padding: 0.2rem;
-  color: #e5017d;
-}
-.recommend-body {
-  border-bottom: 1px solid #eee;
-}
-.recommend-item {
-  width: 99%;
-  border-right: 1px solid #eee;
-  font-size: 12px;
-  text-align: center;
-}
-.floor-anomaly {
-  display: flex;
-  flex-direction: row;
-  background-color: #fff;
-  border-bottom: 1px solid #ddd;
-}
-.floor-anomaly div {
-  width: 10rem;
-
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-}
-.floor-one {
-  border-right: 1px solid #ddd;
-}
-.floor-two {
-  border-bottom: 1px solid #ddd;
-}
-.floor-rule {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  background-color: #fff;
-}
-.floor-rule div {
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  width: 10rem;
-  border-bottom: 1px solid #ddd;
-}
-.floor-rule div:nth-child(odd) {
-  border-right: 1px solid #ddd;
+  .recommend-title {
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+    padding: 0.2rem;
+    color: #e5017d;
+  }
+  .recommend-body {
+    border-bottom: 1px solid #eee;
+    .recommend-item {
+      width: 99%;
+      border-right: 1px solid #eee;
+      font-size: 12px;
+      text-align: center;
+    }
+  }
 }
 </style>
