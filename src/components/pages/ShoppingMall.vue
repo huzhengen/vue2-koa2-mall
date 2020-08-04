@@ -36,7 +36,9 @@
         </swiper>
       </div>
     </div>
-    <floorComponent :floorData="floor1"></floorComponent>
+    <floorComponent :floorData="floor1" :floorTitle="floorName.floor1"></floorComponent>
+    <floorComponent :floorData="floor2" :floorTitle="floorName.floor2"></floorComponent>
+    <floorComponent :floorData="floor3" :floorTitle="floorName.floor3"></floorComponent>
   </div>
 </template>
 
@@ -63,6 +65,7 @@ export default {
       adBanner: {},
       recommendGoods: [],
       swiperOptions: {
+        slidesPerView: 3,
         loop: true,
         pagination: {
           el: ".swiper-pagination",
@@ -70,9 +73,9 @@ export default {
         // Some Swiper option/callback...
       },
       floor1: [],
-      floor1_0: {},
-      floor1_1: {},
-      floor1_2: {},
+      floor2: [],
+      floor3: [],
+      floorName: {},
     };
   },
   created() {
@@ -88,10 +91,10 @@ export default {
           this.adBanner = response.data.data.advertesPicture; //获得广告图片
           this.bannerPicArray = response.data.data.slides; //轮播图片
           this.recommendGoods = response.data.data.recommend; //推荐商品
+          this.floorName = response.data.data.floorName;
           this.floor1 = response.data.data.floor1; //楼层1数据
-          this.floor1_0 = this.floor1[0];
-          this.floor1_1 = this.floor1[1];
-          this.floor1_2 = this.floor1[2];
+          this.floor2 = response.data.data.floor2; //楼层2数据
+          this.floor3 = response.data.data.floor3; //楼层3数据
         }
       })
       .catch((error) => {
