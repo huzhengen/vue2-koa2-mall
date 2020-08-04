@@ -87,9 +87,9 @@ export default {
         // Some Swiper option/callback...
       },
       floor1: [],
-      floor1_0: null,
-      floor1_1: null,
-      floor1_2: null
+      floor1_0: {},
+      floor1_1: {},
+      floor1_2: {}
     };
   },
   created() {
