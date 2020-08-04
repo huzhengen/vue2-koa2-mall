@@ -39,6 +39,19 @@
     <floorComponent :floorData="floor1" :floorTitle="floorName.floor1"></floorComponent>
     <floorComponent :floorData="floor2" :floorTitle="floorName.floor2"></floorComponent>
     <floorComponent :floorData="floor3" :floorTitle="floorName.floor3"></floorComponent>
+    <!--Hot Area-->
+    <div class="hot-area">
+      <div class="hot-title">热卖商品</div>
+      <div class="hot-goods">
+        <van-list>
+          <van-row gutter="20">
+            <van-col span="12" v-for="( item, index) in hotGoods" :key="index">
+              <goods-info :goodsImage="item.image" :goodsName="item.name" :goodsPrice="item.price"></goods-info>
+            </van-col>
+          </van-row>
+        </van-list>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -48,12 +61,14 @@ import { Swiper, SwiperSlide, directive } from "vue-awesome-swiper";
 import "swiper/css/swiper.css";
 import floorComponent from "../component/floorComponent";
 import { toMoney } from "@/filter/moneyFilter.js";
+import goodsInfo from "../component/goodsInfoComponent";
 
 export default {
   components: {
     Swiper,
     SwiperSlide,
     floorComponent,
+    goodsInfo,
   },
   directives: {
     swiper: directive,
@@ -77,6 +92,7 @@ export default {
       floor2: [],
       floor3: [],
       floorName: {},
+      hotGoods: [], //热卖商品
     };
   },
   created() {
@@ -96,6 +112,7 @@ export default {
           this.floor1 = response.data.data.floor1; //楼层1数据
           this.floor2 = response.data.data.floor2; //楼层2数据
           this.floor3 = response.data.data.floor3; //楼层3数据
+          this.hotGoods = response.data.data.hotGoods; //热卖商品
         }
       })
       .catch((error) => {
@@ -169,5 +186,11 @@ export default {
       text-align: center;
     }
   }
+}
+.hot-area {
+  text-align: center;
+  font-size: 14px;
+  height: 1.8rem;
+  line-height: 1.8rem;
 }
 </style>
